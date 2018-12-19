@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js">
+    </script>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p v-text= msg1></p>
+        <p v-html= msg2></p>
+        <input type="submit"  @click="show">
+        <button @click="show">按钮</button>
+    </div>
+    <script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            msg:"你好世界袁月",
+            msg1:"你好世界袁月er",
+            msg2:"你好世界minyuwen"
+        },
+        methods:{
+          show(){
+             alert("nmp")
+          }
+        }
+    })
+    </script>
+</body>
+</html>         
