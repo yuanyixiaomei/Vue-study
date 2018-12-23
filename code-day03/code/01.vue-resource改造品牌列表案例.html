@@ -23,7 +23,7 @@
       <div class="panel-body form-inline">
         <label for="">
           Name:
-          <input type="text" v-model="name" class="form-control">
+          <input type="text" v-model="name" class="form-control" v-model="name">
         </label>
         <input type="button" value="添加" class="btn-primary" @click="add()">
       </div>
@@ -41,11 +41,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr v-for="item in list" :key="item.id">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.ctime}}</td>
+            <td> <a href="" @click.prevent="del">删除</a></td>
           </tr>
         </tbody>
 
@@ -54,36 +54,73 @@
   </div>
   <script>
     var vm = new Vue({
-       el:"#app",
-       data:{
-         name:"",
-         list:[
-           {id:1,name:"五菱宏光",ctime:new Date()},
-           {id:2,name:"众泰",ctime:new Date()},
-         ]
+      el: "#app",
+      data: {
+        name: "",
+        list: [{
+            id: 1,
+            name: "五菱宏光",
+            ctime: new Date()
+          },
+          {
+            id: 2,
+            name: "众泰",
+            ctime: new Date()
+          },
+        ]
 
-       },
-       created(){
+      },
+      created() {
         this.getAllList()
-       },
-       methods:{
-         add(){
-            
-         },
-         getAllList(){
-              this.$http.get("http://vue.studyit.io/api/getprodlist").then(result=>{
-                var result=result.body
-                if(result.status===0){
-                 
-                  this.list=result.message
-                }else{
-                  alert("获取数据失败")
-                }
-              })
+      },
+      methods: {
+        add() {
+          this.$http.post("http://litc.pro:9999/v1/goods/getGoodsList", {
+            name: this.name
+          }, {
+            emulateJSON: true
+          }).then(result => {
+            if (result.body.status === 200) {
+              getAllList()
+            } else {
+              alert("添加失败")
             }
-       }
+          })
+
+        },
+        getAllList() {
+          this.$http.get("http://litc.pro:9999/v1/goods/getGoodsList", {
+            params: {
+              page: 1,
+              pageSize: 10
+            }
+          }).then(result => {
+
+            var result = result.body
+            console.log(result);
+            if (result.status == 200) {
+              this.list = result.data.goods
+            } else {
+              alert("获取数据失败")
+            }
+          })
+        },
+        del() {
+          this.$http.get("http://litc.pro:9999/v1/goods/getGoodsList" + id, ).then(result => {
+            if (result.status == 200) {
+              alert("删除数据成功")
+            } else {
+              alert("删除数据失败")
+            }
+
+          })
+        }
+
+      }
 
     })
+    Vue.http.options.root="http://www.liulongbin.top:3005";
+    Vue.http.options.emulateJSON=true;
   </script>
 
   <!-- 
