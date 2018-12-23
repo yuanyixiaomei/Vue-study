@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-<script src="./lib/vue-2.4.0.js"></script>
-<link rel="stylesheet" href="./lib/animate1.css">
-<style>
-/* .v-enter,
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate1.css">
+    <style>
+        /* .v-enter,
 .v-leave-to{
     opacity: 0;
     transform: translateX(200px);
@@ -25,22 +26,27 @@
 </head>
 
 <body>
-<div id="app">
-    <input type="button" value="切换" @click="flag=!flag">
-    <transition enter-active-class="heartBeat" leave-active-class="shake" :duration="{enter:500,leave:800}">
-        <h3 v-if="flag" class="animated">这是一个动画</h3>
-    
-    </transition>
-</div>
-<script>
-let vm = new Vue({
-el: '#app',
-data: {
- flag:false
-},
-methods: {}
-})
-</script>
+    <div id="app">
+        <input type="button" value="切换" @click="flag=!flag">
+     
+        <transition-group appear tag="h3" enter-active-class="fadeOutLeftBig" leave-active-class="rotateOutUpRight" :duration="{enter:1600,leave:1600}">
+            <h3 v-if="flag" class="animated">
+                <img src="./tim1g.jpg" alt="">
+                <img src="./timg.jpg" alt="">
+            </h3>
+
+
+        </transition-group>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false
+            },
+            methods: {}
+        })
+    </script>
 </body>
 
 </html>
